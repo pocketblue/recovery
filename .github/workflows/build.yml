@@ -24,14 +24,20 @@ jobs:
         run: |
           sudo apt -y update
           sudo apt install -y gnupg gperf build-essential libxml2-utils xsltproc repo
+          sudo apt clean
+      - uses: easimon/maximize-build-space@master
+        with:
+          remove-android: 'true'
+          remove-dotnet: 'true'
+          remove-codeql: 'true'
+          remove-haskell: 'true'
+          remove-docker-images: 'true'
       - name: build
         run: |
-          sudo mkdir /mnt/build
-          sudo chown $USER /mnt/build
-          cp -r '${{ inputs.device }}' /mnt/build
-          cd '/mnt/build/${{ inputs.device }}'
+          cd '${{ inputs.device }}'
           bash '${{ inputs.recovery }}.sh'
       - uses: actions/upload-artifact@v4
         with:
           name: '${{ inputs.recovery }}-${{ inputs.device }}'
           path: '${{ inputs.recovery }}-${{ inputs.device }}.img'
+          if-no-files-found: error
