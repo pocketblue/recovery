@@ -1,0 +1,21 @@
+on:
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v4
+      - name: deps
+        run: |
+          sudo apt -y update
+          sudo apt install -y gnupg gperf build-essential libxml2-utils xsltproc repo
+      - name: build
+        run: |
+          cd nothing-pong
+          bash build-orangefox.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: orangefox-nothing-pong
+          path: sync/fox_12.1/out/target/product/Pong/OrangeFox-Unofficial-Beta-Pong.img
