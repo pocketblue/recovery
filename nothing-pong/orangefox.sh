@@ -7,9 +7,8 @@ export ALLOW_MISSING_DEPENDENCIES=true
 # sync
 git config --global color.ui auto
 git clone https://gitlab.com/OrangeFox/sync
-cd sync
-bash orangefox_sync.sh --branch 12.1 --path $(pwd)/fox_12.1
-cd fox_12.1
+env chdir=sync bash orangefox_sync.sh --branch 12.1 --path $(pwd)/build
+cd build
 git clone https://gitlab.com/OrangeFox/device/Pong -b fox_12.1 device/nothing/Pong
 
 # extract dtb
