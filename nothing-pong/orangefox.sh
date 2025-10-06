@@ -6,7 +6,7 @@ export ALLOW_MISSING_DEPENDENCIES=true
 
 # sync
 git config --global color.ui auto
-git clone https://github.com/OrangeFox-mirror/sync
+git clone https://gitlab.com/OrangeFox/sync
 cd sync
 bash orangefox_sync.sh --branch 12.1 --path $(pwd)/fox_12.1
 cd fox_12.1
@@ -24,3 +24,5 @@ grep BOARD_INCLUDE_DTB_IN_BOOTIMG device/nothing/Pong/BoardConfigCommon.mk || \
 source build/envsetup.sh
 lunch twrp_Pong-eng
 mka vendorbootimage
+
+cp out/target/product/Pong/OrangeFox-R11.3_0-Beta-Pong.img $GITHUB_WORKSPACE/orangefox-nothing-pong.img

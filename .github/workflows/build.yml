@@ -1,10 +1,23 @@
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      device:
+        type: choice
+        required: true
+        options:
+          - 'nothing-pong'
+      recovery:
+        type: choice
+        required: true
+        options:
+          - 'twrp'
+          - 'orangefox'
+          - 'pitchblack'
 permissions:
   contents: write
 jobs:
   build:
-    runs-on: ubuntu-24.04-arm
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - name: deps
@@ -13,9 +26,12 @@ jobs:
           sudo apt install -y gnupg gperf build-essential libxml2-utils xsltproc repo
       - name: build
         run: |
-          cd nothing-pong
-          bash build-orangefox.sh
+          sudo mkdir /mnt/build
+          sudo chown $USER /mnt/build
+          cp -r '${{ inputs.device }}' /mnt/build
+          cd '/mnt/build/${{ inputs.device }}'
+          bash '${{ inputs.recovery }}.sh'
       - uses: actions/upload-artifact@v4
         with:
-          name: orangefox-nothing-pong
-          path: sync/fox_12.1/out/target/product/Pong/OrangeFox-Unofficial-Beta-Pong.img
+          name: '${{ inputs.recovery }}-${{ inputs.device }}'
+          path: '${{ inputs.recovery }}-${{ inputs.device }}.img'
