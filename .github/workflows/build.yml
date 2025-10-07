@@ -31,6 +31,7 @@ jobs:
           remove-codeql: 'true'
           remove-haskell: 'true'
           remove-docker-images: 'true'
+          swap-size-mb: 0
       - name: zram
         run: |
           sudo modprobe zram
