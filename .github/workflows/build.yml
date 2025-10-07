@@ -1,0 +1,50 @@
+on:
+  workflow_dispatch:
+    inputs:
+      device:
+        type: choice
+        required: true
+        options:
+          - nothing-pong
+          - nothing-spacewar
+      recovery:
+        type: choice
+        required: true
+        options:
+          - twrp
+          - orangefox
+          - pitchblack
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: deps
+        run: |
+          sudo apt -y update
+          sudo apt install -y linux-modules-extra-$(uname -r) gnupg gperf build-essential libxml2-utils xsltproc repo
+          sudo apt clean
+      - uses: easimon/maximize-build-space@master
+        with:
+          remove-android: 'true'
+          remove-dotnet: 'true'
+          remove-codeql: 'true'
+          remove-haskell: 'true'
+          remove-docker-images: 'true'
+      - name: zram
+        run: |
+          sudo modprobe zram
+          dev=$(sudo zramctl --find --algorithm zstd --size 32G)
+          sudo mkswap "$dev"
+          sudo swapon --priority 100 "$dev"
+      - uses: actions/checkout@v4
+      - name: build
+        run: |
+          cd '${{ inputs.device }}'
+          bash '${{ inputs.recovery }}.sh'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: '${{ inputs.recovery }}-${{ inputs.device }}'
+          path: '${{ inputs.recovery }}-${{ inputs.device }}.img'
+          if-no-files-found: error
