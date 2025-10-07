@@ -23,4 +23,4 @@ grep BOARD_INCLUDE_DTB_IN_BOOTIMG device/nothing/Pong/BoardConfigCommon.mk || \
 # build
 source build/envsetup.sh
 lunch pb_Pong-eng
-mka vendorbootimage
+mka -j1 vendorbootimage
