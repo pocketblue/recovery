@@ -23,4 +23,6 @@ grep BOARD_INCLUDE_DTB_IN_BOOTIMG device/nothing/Pong/BoardConfigCommon.mk || \
 # build
 source build/envsetup.sh
 lunch pb_Pong-eng
-mka -j8 vendorbootimage
+mka vendorbootimage
+
+cp out/target/product/Pong/vendor_boot.img $GITHUB_WORKSPACE/twrp-nothing-pong.img
