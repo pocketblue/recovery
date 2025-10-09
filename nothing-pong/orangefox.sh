@@ -17,7 +17,7 @@ python system/tools/mkbootimg/unpack_bootimg.py --boot_img=vendor_boot.img --out
 mkdir device/nothing/Pong/prebuilt/dtbs
 cp vendor_boot_unpacked/dtb device/nothing/Pong/prebuilt/dtbs/pong.dtb
 grep BOARD_INCLUDE_DTB_IN_BOOTIMG device/nothing/Pong/BoardConfigCommon.mk || \
-   cat ../../BoardConfigAppend.mk >> device/nothing/Pong/BoardConfigCommon.mk
+   cat ../BoardConfigAppend.mk >> device/nothing/Pong/BoardConfigCommon.mk
 
 # build
 source build/envsetup.sh
