@@ -8,3 +8,27 @@
 ### bugs
 
 - touchscreen not works, but you can do anything via adb shell
+
+### booting orangefox
+
+- download `boot.img` from [lineage os build](https://download.lineageos.org/devices/Spacewar/builds)
+- download `orangefox_nothing_spacewar.img` from [releases](https://github.com/pocketblue/recovery/releases)
+
+```shell
+fastboot --set-active=a
+fastboot flash boot_a boot.img
+fastboot flash vendor_boot_a orangefox_nothing_spacewar.img
+fastboot reboot recovery
+```
+
+### uninstall orangefox and get working lineage os back
+
+- download `boot.img` from [lineage os build](https://download.lineageos.org/devices/Spacewar/builds)
+- download `vendor_boot.img` from [lineage os build](https://download.lineageos.org/devices/Spacewar/builds)
+
+```shell
+fastboot --set-active=a
+fastboot flash boot_a boot.img
+fastboot flash vendor_boot_a vendor_boot.img
+fastboot reboot
+```
