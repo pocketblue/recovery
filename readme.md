@@ -7,7 +7,14 @@
 
 ### bugs
 
-- touchscreen not works, but you can do anything via adb shell
+- touchscreen not works
+- battery status not works
+
+### fuatures
+
+- [hardware gui control](https://wiki.orangefox.tech/en/guides/recovery_no_touch) works
+- adb shell works
+- userdata decryption works
 
 ### booting orangefox
 
