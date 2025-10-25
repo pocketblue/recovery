@@ -5,17 +5,6 @@
 - building script - [nothing-spacewar/orangefox.sh](nothing-spacewar/orangefox.sh)
 - workflow - [.github/workflows/release-nothing-spacewar.yml](.github/workflows/release-nothing-spacewar.yml)
 
-### bugs
-
-- touchscreen not works
-- battery status not works
-
-### fuatures
-
-- [hardware gui control](https://wiki.orangefox.tech/en/guides/recovery_no_touch) works
-- adb shell works
-- userdata decryption works
-
 ### flashing orangefox
 
 - download `boot.img` from [lineage os build](https://download.lineageos.org/devices/Spacewar/builds)
@@ -38,4 +27,23 @@ fastboot --set-active=a
 fastboot flash boot_a boot.img
 fastboot flash vendor_boot_a vendor_boot.img
 fastboot reboot
+```
+
+### bugs
+
+- touchscreen not works
+- battery status not works
+
+### fuatures
+
+- [hardware gui control](https://wiki.orangefox.tech/en/guides/recovery_no_touch) works
+- adb shell works
+- userdata decryption works
+
+### getting working touchscreen
+
+```shell
+adb shell
+mount -t erofs -o ro /dev/block/mapper/vendor_dlkm_a /vendor_dlkm
+insmod /vendor_dlkm/lib/modules/fts_tp.ko
 ```
