@@ -19,6 +19,12 @@ python system/tools/mkbootimg/unpack_bootimg.py --boot_img=vendor_boot.img --out
 cp vendor_boot_unpacked/vendor_ramdisk device/nothing/Spacewar/prebuilt/vendor-ramdisk
 cp vendor_boot_unpacked/dtb device/nothing/Spacewar/prebuilt/dtbs/Spacewar.dtb
 
+# include parted and sgdisk static binaries
+curl https://github.com/pocketblue/parted-static/releases/download/v3.6/parted -Lo device/nothing/Spacewar/recovery/root/system/bin/parted
+curl https://github.com/pocketblue/sgdisk-static/releases/download/v1.0.10/sgdisk -Lo device/nothing/Spacewar/recovery/root/system/bin/sgdisk
+chmod +x device/nothing/Spacewar/recovery/root/system/bin/parted
+chmod +x device/nothing/Spacewar/recovery/root/system/bin/sgdisk
+
 # build
 source build/envsetup.sh
 lunch twrp_Spacewar-eng
